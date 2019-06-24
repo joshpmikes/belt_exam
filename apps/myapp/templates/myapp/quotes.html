@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div.all_quotes{
+            width: 400px;
+            min-height: 400px;
+            display: inline-block;
+        }
+
+        div.add_quote{
+            margin-left: 100px;
+            display: inline-block;
+            vertical-align: top;
+        }
+    
+    </style>
+</head>
+<body>
+    <h1> Welcome {{user.first_name}} {{user.last_name}}!</h1>
+    <div class="all_quotes">
+        <h2>Quotes</h2>
+        {%for quote in all_quotes%}
+            <p>{{quote.author}}: "{{quote.actual_quote}}"</p>
+            <p>Posted by: <a href="/user/{{quote.uploaded_by.id}}">{{quote.uploaded_by.first_name}}</a></p>
+            <form action="/like_quote/{{quote.id}}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Like" name="{{quote_id}}">
+            </form>
+            {%if quote.uploaded_by.id == user.id%}
+                <p><a href="/delete_quote/{{quote.id}}">Remove Quote</a></p>
+            {%endif%}
+            <p>{{quote.users_who_liked.all|length}} people have liked this quote!</p>
+            <p>_________________________________________________</p>
+        {%endfor%}
+    </div>
+
+    <div class="add_quote">
+        <a href="/logout">>Logout</a>
+        <p>><a href="/myaccount/{{user.id}}">Edit My Account</a></p>
+        {% if messages%}
+        {%for message in messages%}
+            <p>{{message}}</p>
+        {%endfor%}
+        {%endif%}
+        <h2>Add a quote!</h2>
+        <form action="/upload_quote" method="POST">
+            {% csrf_token %}
+            <p>Author:<input type="text" name="author"></p>
+            <p>Quote: <input type="text" name="actual_quote"></p>
+            <input type="submit" value="Submit Quote">
+        </form>
+    </div>
+
+    
+</body>
+</html>

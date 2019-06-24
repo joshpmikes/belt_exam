@@ -1,0 +1,28 @@
+div.bigboy{
+    background-color: aqua;
+    min-height: 970px;
+    min-width: 800px;
+}
+h1{
+    color: darkred;
+
+}
+
+div.register{
+    color: darkred;
+    font-weight: 600;
+    width: 400px;
+    height: 500px;
+    display: inline-block;
+    margin-left: 50px;
+}
+
+div.login{
+    color: darkred;
+    font-weight: 600;
+    width: 400px;
+    height: 500px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 250px;
+}
